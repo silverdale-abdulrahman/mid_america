@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+          <record id="action_report_print_delivery_report_price" model="ir.actions.report">
+               <field name="name">Delivery report with price</field>
+               <field name="model">delivery.report.price.wizard</field>
+               <field name="report_type">qweb-pdf</field>
+               <field name="report_name">delivery_report_stock_line.delivery_report_with_price</field>
+               <field name="report_file">delivery_report_stock_line.delivery_report_with_price</field>
+          </record>
+
+        <record id="action_report_print_delivery_report" model="ir.actions.report">
+               <field name="name">Delivery report</field>
+               <field name="model">delivery.report.wizard</field>
+               <field name="report_type">qweb-pdf</field>
+               <field name="report_name">delivery_report_stock_line.delivery_report</field>
+               <field name="report_file">delivery_report_stock_line.delivery_report</field>
+        </record>
+
+        <record id="action_delivery_report" model="ir.actions.server">
+            <field name="name">Print Delivery Report</field>
+            <field name="model_id" ref="stock.model_stock_move_line"/>
+            <field name="binding_model_id" ref="stock.model_stock_move_line"/>
+            <field name="binding_view_types">list</field>
+            <field name="state">code</field>
+            <field name="code">
+                if records:
+                res = model.delivery_report_action()
+                if isinstance(res, dict):
+                    action = res
+            </field>
+        </record>
+
+
+        <record id="action_delivery_report_with_price" model="ir.actions.server">
+            <field name="name">Print Delivery Report With Price</field>
+            <field name="model_id" ref="stock.model_stock_move_line"/>
+            <field name="binding_model_id" ref="stock.model_stock_move_line"/>
+            <field name="binding_view_types">list</field>
+            <field name="state">code</field>
+            <field name="code">
+                if records:
+                res = model.delivery_report_with_price_action()
+                if isinstance(res, dict):
+                    action = res
+            </field>
+        </record>
+    </data>
+</odoo>

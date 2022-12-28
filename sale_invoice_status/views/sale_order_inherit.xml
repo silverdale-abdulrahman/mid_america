@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="sale_order_tree_payment_status" model="ir.ui.view">
+            <field name="name">sale.order.tree.payment_status</field>
+            <field name="model">sale.order</field>
+            <field name="inherit_id" ref="sale.view_order_tree"/>
+            <field name="arch" type="xml">
+                <field name="invoice_status" position="after">
+                    <field name="invoice_payment_status" decoration-success="invoice_payment_status == 'paid'" decoration-danger="invoice_payment_status == 'unpaid'" widget="badge" optional="show"/>
+                </field> 
+            </field>
+        </record>
+        <record id="view_quotation_tree_payemnt" model="ir.ui.view">
+            <field name="name">sale.order.q.tree.payment_status</field>
+            <field name="model">sale.order</field>
+            <field name="inherit_id" ref="sale.view_quotation_tree"/>
+            <field name="arch" type="xml">
+                <field name="invoice_status" position="after">
+                    <field name="invoice_payment_status" decoration-success="invoice_payment_status == 'paid'" decoration-danger="invoice_payment_status == 'unpaid'" widget="badge" optional="show"/>
+                </field> 
+            </field>
+        </record>
+        
+
+    </data>
+</odoo>

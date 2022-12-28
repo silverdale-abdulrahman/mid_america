@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="product_barcode_view_form" model="ir.ui.view">
+            <field name="name">product_barcode_view_form</field>
+            <field name="model">product.barcode</field>
+            <field name="arch" type="xml">
+                <form string="product_barcode_view_form">
+                    <sheet>
+                        <group>
+                            <field name="sequence" invisible="1"/>
+                            <field name="name"/>
+                            <field name="barcode_type_id"/>
+                            <field name="product_id"/>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+        <record id="product_barcode_view_tree" model="ir.ui.view">
+            <field name="name">product_barcode_view_tree</field>
+            <field name="model">product.barcode</field>
+            <field name="arch" type="xml">
+                <tree string="product_barcode_tree">
+                    <field name="sequence" widget="handle"/>
+                    <field name="name"/>
+                    <field name="barcode_type_id"/>
+                    <field name="product_id"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="product_barcode_view_search" model="ir.ui.view">
+            <field name="name">product_barcode_view_search</field>
+            <field name="model">product.barcode</field>
+            <field name="arch" type="xml">
+                <search string="">
+                    <field name="name" string="Barcode"/>
+                    <field name="barcode_type_id" string="Barcode Type"/>
+                    <field name="product_id" string="Product"/>
+                </search>
+            </field>
+        </record>
+
+        <record id="product_barcode_action" model="ir.actions.act_window">
+            <field name="name">Product Barcode</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">product.barcode</field>
+            <field name="view_mode">tree,form</field>
+            <field name="context">{'create': False,'edit': False}</field>
+        </record>
+
+        <!-- This Menu Item must have a parent and an action -->
+        <menuitem id="product_barcode_menu" name="Product Barcodes" parent="stock.menu_stock_inventory_control"
+                  action="product_barcode_action" sequence="3"/>
+    </data>
+</odoo>

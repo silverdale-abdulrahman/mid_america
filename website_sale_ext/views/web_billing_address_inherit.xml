@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data>
+<!--        <template id="website_billing_address_inherit" inherit_id="website_sale.address" name="Address Management">-->
+<!--            <xpath expr="//div[hasclass('oe_cart')]/div[0]//t[0]" position="replace">-->
+<!--                <t t-if="mode == ('new', 'billing')">-->
+<!--                    <h2 class="o_page_header mt8">Billing Address-->
+<!--                        <small> or </small>-->
+<!--                        <a role="button" href='/web/login?redirect=/shop/checkout' class='btn btn-primary' style="margin-top: -11px">Log In</a>-->
+<!--                    </h2>-->
+<!--                </t>-->
+<!--            </xpath>-->
+<!--        </template>-->
+
+    </data>
+</odoo>

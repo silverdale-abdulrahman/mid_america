@@ -1,0 +1,81 @@
+<odoo>
+    <data>
+
+        <!-- Inherit Form View to Modify it -->
+        <record id="sb_multi_barcode_inherit_res_config_settings_view_form" model="ir.ui.view">
+            <field name="name">res.config.settings.multi_barcode.extension</field>
+            <field name="model">res.config.settings</field>
+            <field name="inherit_id" ref="sd_base_setup.sd_base_setup_inherit_view_res_config_settings_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//div[@name='silverdale_integration']" position="after">
+                    <h2 attrs="{'invisible':[('module_sd_multi_barcode', '=', False)]}">Silverdale Multi-Barcode
+                        Extensions
+                    </h2>
+                    <div class="row mt16 o_settings_container" name="silverdale_multi_barcode_extension"
+                         attrs="{'invisible':[('module_sd_multi_barcode', '=', False)]}">
+                        <div class="col-12 col-lg-6 o_setting_box" id="module_sd_multi_barcode_sale">
+                            <div class="o_setting_left_pane">
+                                <field name="module_sd_multi_barcode_sale"/>
+                            </div>
+                            <div class="o_setting_right_pane">
+                                <label string="Sales Multiple  Barcode" for="module_sd_multi_barcode_sale"/>
+                                <div class="text-muted">
+                                    With this enabled,you can search for all product barcodes in sales.
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-12 col-lg-6 o_setting_box" id="module_sd_multi_barcode_purchase">
+                            <div class="o_setting_left_pane">
+                                <field name="module_sd_multi_barcode_purchase"/>
+                            </div>
+                            <div class="o_setting_right_pane">
+                                <label string="purchase Multiple  Barcode" for="module_sd_multi_barcode_purchase"/>
+                                <div class="text-muted">
+                                    With the enabled,you can search for all product barcodes in Purchase.
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-12 col-lg-6 o_setting_box" id="module_sd_multi_barcode_mrp">
+                            <div class="o_setting_left_pane">
+                                <field name="module_sd_multi_barcode_mrp"/>
+                            </div>
+                            <div class="o_setting_right_pane">
+                                <label string="Manufacturing Multiple  Barcode" for="module_sd_multi_barcode_mrp"/>
+                                <div class="text-muted">
+                                    With this enabled,you can search for all product barcodes in Manufacturing.
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-12 col-lg-6 o_setting_box" id="module_sd_multi_barcode_account">
+                            <div class="o_setting_left_pane">
+                                <field name="module_sd_multi_barcode_account"/>
+                            </div>
+                            <div class="o_setting_right_pane">
+                                <label string="Accounting Multiple  Barcode" for="module_sd_multi_barcode_account"/>
+                                <div class="text-muted">
+                                    With this enabled,you can search for all product barcodes in Accounting.
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-12 col-lg-6 o_setting_box" id="module_sd_multi_barcode_pos">
+                            <div class="o_setting_left_pane">
+                                <field name="module_sd_multi_barcode_pos"/>
+                            </div>
+                            <div class="o_setting_right_pane">
+                                <label string="Point of Sale Multiple  Barcode" for="module_sd_multi_barcode_pos"/>
+                                <div class="text-muted">
+                                    With this enabled,you can search for all product barcodes in Point of Sale.
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </xpath>
+
+            </field>
+        </record>
+    </data>
+</odoo>

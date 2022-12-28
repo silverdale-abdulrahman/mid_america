@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<odoo>
+    <template id="assets_backend" name="Documents assets backend" inherit_id="web.assets_backend">
+        <xpath expr="." position="inside">
+            <script type="text/javascript" src="/sd_document/static/src/js/documentsinspector.js"/>
+            <script type="text/javascript" src="/sd_document/static/src/js/views_maxin.js"/>
+        </xpath>
+    </template>
+</odoo>

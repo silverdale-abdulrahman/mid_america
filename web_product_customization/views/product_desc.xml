@@ -1,0 +1,21 @@
+<odoo>
+    <data>
+        <template id="website_sale.products_description" inherit_id="website_sale.products_item" active="False" customize_show="True" name="Product Description">
+            <xpath expr="//*[hasclass('product_price')]" position="after">
+                <div class="oe_subdescription" contenteditable="false">
+                    <style>
+                        @media only screen and (max-width: 600px) {
+                            #shop_product_desc {
+                             display: none;
+                            }
+                          }
+                    </style>
+                    <div itemprop="description" id="shop_product_desc" t-field="product.description_sale"/>
+                </div>
+            </xpath>
+        </template>
+
+        
+
+    </data>
+</odoo>

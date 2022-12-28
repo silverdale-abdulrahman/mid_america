@@ -1,0 +1,5 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_dig_list_main,dig.list.main,model_dig_list_main,base.group_user,1,1,1,1
+access_dig_list_records,dig.list.records,model_dig_list_records,base.group_user,1,1,1,1
+access_dig_report_save,dig.report.save,model_dig_report_save,base.group_user,1,1,1,1
+access_picklist_report_selection,picklist.report.selection,model_picklist_report_selection,base.group_user,1,1,1,1

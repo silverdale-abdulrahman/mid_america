@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="template_wishlist_inherit" inherit_id="website_sale_wishlist.product_wishlist">
+        <xpath expr="//td[@class='td-img']" position="attributes">
+            <attribute name="style">min-width: 200px;</attribute>
+        </xpath>
+    </template>
+</odoo>

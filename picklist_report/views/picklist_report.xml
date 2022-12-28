@@ -1,0 +1,158 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+
+    <template id="report_picklist_stock">
+        <t t-call="web.html_container">
+
+            <t t-call="web.external_layout">
+                <div class="page">
+                    <span class="text-center o_mrp_report_info">
+                        <h1>Pick Items Report</h1>
+                    </span>
+                    <t t-set="total" t-value="0"/>
+                    <table class="table table-sm o_main_table" name="picklist_report_table">
+                        <thead>
+                            <tr>
+                                <th name="th_date" class="text-left">
+                                    <span>Date</span>
+                                </th>
+                                <th name="th_sale_order" class="text-left">
+                                    <span>Sale Order</span>
+                                </th>
+                                <th name="th_customer_name" class="text-left">
+                                    <span>Customer Name</span>
+                                </th>
+                                <th name="th_customer_name" class="text-left">
+                                    <span>Customer Phone</span>
+                                </th>
+                                <th name="th_customer_name" class="text-left">
+                                    <span>Customer Email</span>
+                                </th>
+                                <th name="th_product" class="text-left">
+                                    <span>Product</span>
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody class="picklist_report_body">
+                            <t t-foreach="docs" t-as="doc">
+
+                                <t t-foreach="int(doc.product_qty)" t-as="i">
+                                    <tr>
+                                        <td>
+                                            <span t-field="doc.date"/>
+                                        </td>
+                                        <td>
+                                            <span t-field="doc.x_studio_sales_order"/>
+                                        </td>
+                                        <td>
+                                            <span t-field="doc.x_studio_customer_name"/>
+                                        </td>
+                                        <td>
+                                            <span t-field="doc.picking_id.sale_id.partner_id.phone"/>
+                                        </td>
+
+                                        <td>
+                                            <span t-field="doc.picking_id.sale_id.partner_id.email"/>
+                                        </td>
+                                        <td>
+                                            <span t-field="doc.product_id"/>
+                                            <t t-set="total" t-value="total + 1"/>
+                                        </td>
+                                    </tr>
+                                </t>
+                            </t>
+                            <h3>Total Quantity:
+                                <t t-esc="total"/>
+                            </h3>
+
+
+                        </tbody>
+                    </table>
+
+
+                </div>
+            </t>
+            <!-- <t t-call="picklist_report.report_picklist_stock_document" /> -->
+        </t>
+    </template>
+
+
+    <record id="picklist_report_menu_template" model="ir.actions.report">
+        <field name="name">Pick Iems</field>
+        <field name="model">stock.move.line</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">picklist_report.report_picklist_stock</field>
+        <field name="report_file">picklist_report.report_picklist_stock</field>
+        <field name="binding_model_id" ref="stock.model_stock_move_line"/>
+        <field name="binding_type">report</field>
+    </record>
+
+
+
+    <record id="dig_list_main_wizard_form" model="ir.ui.view">
+            <field name="name">dig.list.main.form</field>
+            <field name="model">dig.list.main</field>
+            <field name="groups_id" eval="[(4,ref('base.group_user'))]"/>
+            <field name="arch" type="xml">
+                <form string="Gig List Wizard">
+                    <field name="stock_move_ids"/>
+                    <field name="dig_records_ids">
+                        <tree>
+                            <field name="picking_id"/>
+                            <field name="move_id"/>
+                            <field name="product_id"/>
+                            <field name="date"/>
+                            <field name="reference"/>
+                            <field name="origin"/>
+                            <field name="product_type"/>
+                            <field name="product_uom_qty"/>
+                        </tree>
+                    </field>
+                    <footer>
+                        <button string="Select" name="export_dig_list_records" type="object" class="btn-primary"/>
+                        <button string="Cancel" class="btn-secondary" special="cancel" />
+                    </footer>
+                </form>
+            </field>
+        </record>
+
+
+
+
+
+    <record id="dig_list_main_wizard_form_act" model="ir.actions.act_window">
+        <field name="name">dig list print report/label in excel</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">dig.list.main</field>
+        <field name="view_mode">form</field>
+        <field name="view_id" ref="picklist_report.dig_list_main_wizard_form"/>
+        <field name="context">{'default_active_ids':active_ids}</field>
+        <field name="target">new</field>
+        <field name="help">This wizard will dig list print report/label in excel.</field>
+        <field name="binding_model_id" ref="stock.model_stock_move_line" />
+        <field name="binding_view_types">list</field>
+    </record>
+
+
+    <!-- dig list Report Save Wizard -->
+        <record id="dig_list_report_save_form" model="ir.ui.view">
+            <field name="name">dig.report.save.form</field>
+            <field name="model">dig.report.save</field>
+            <field name="arch" type="xml">
+                <form string="Dig Report">
+                    <field name="name" invisible="1"/>
+                        <div>
+                            <h2>Report Generated</h2>
+                            <p>Here is the Excel Sheet: <field name="data" readonly="1" filename="name"/></p>
+                        </div>
+                        <footer><button string="Close" class="btn-default" special="cancel"/></footer>
+                    </form>
+                </field>
+        </record>
+
+
+
+
+
+</odoo>

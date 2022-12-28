@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <template id="assets_backend" name="sd mail assets" inherit_id="web.assets_backend">
+            <xpath expr="." position="inside">
+                <script type="text/javascript" src="/sd_company_mail/static/src/models/messaging_notification_handler/messaging_notification_handler.js"></script>
+            </xpath>
+        </template>
+    </data>
+</odoo>

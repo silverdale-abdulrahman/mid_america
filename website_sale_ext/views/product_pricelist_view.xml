@@ -1,0 +1,17 @@
+<odoo>
+
+   <record id="website_sale_pricelist_form_view" model="ir.ui.view">
+        <field name="name">product.pricelist.form.view.inherit</field>
+        <field name="model">product.pricelist</field>
+        <field name="inherit_id" ref="website_sale.website_sale_pricelist_form_view"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='selectable']" position="after">
+                <field name="is_hide_promo_website" />
+            </xpath>
+            <xpath expr="//field[@name='code']" position="attributes">
+                 <attribute name="attrs">{'invisible':[('is_hide_promo_website','=',True)]}</attribute>
+            </xpath>
+        </field>
+   </record>
+
+</odoo>

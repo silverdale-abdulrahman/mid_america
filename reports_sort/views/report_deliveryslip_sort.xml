@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <template inherit_id="stock.report_delivery_document" id="report_deliveryslip_sort">
+            <xpath expr="//table[@name='stock_move_table']/tbody/tr" position="replace">
+                <t t-set="lines" t-value="o.move_lines.filtered(lambda x: x.product_uom_qty)"/>
+                <tr t-foreach="lines.sorted(key=lambda x: x.product_id.name.lower() ,reverse=False)"
+                    t-as="move">
+                    <td>
+                        <span t-field="move.product_id"/>
+                        <p t-if="move.description_picking != move.product_id.name">
+                            <span t-field="move.description_picking"/>
+                        </p>
+                    </td>
+                    <td>
+                        <span t-field="move.product_uom_qty"/>
+                        <span t-field="move.product_uom"/>
+                    </td>
+                </tr>
+
+            </xpath>
+        </template>
+
+        <template inherit_id="delivery_slip_with_pricing.report_delivery_document1" id="report_deliveryslip1_sort">
+            <xpath expr="//table[@name='stock_move_table']/tbody/tr" position="replace">
+                <t t-set="lines" t-value="o.move_lines.filtered(lambda x: x.product_uom_qty)"/>
+                <tr t-foreach="lines.sorted(key=lambda x: x.product_id.name.lower() ,reverse=False)"
+                    t-as="move">
+                    <td>
+                        <span t-field="move.product_id"/>
+                        <p t-if="move.description_picking != move.product_id.name">
+                            <span t-field="move.description_picking"/>
+                        </p>
+                    </td>
+                    <td>
+                        <span t-field="move.product_uom_qty"/>
+                        <span t-field="move.product_uom"/>
+                    </td>
+                </tr>
+
+            </xpath>
+
+        </template>
+
+        <template inherit_id="picklist_report.report_picklist_stock" id="report_picklist_stock_sort">
+            <xpath expr="//table[@name='picklist_report_table']/tbody" position="replace">
+                <t t-foreach="docs.sorted(key=lambda x: x.product_id.name.lower() ,reverse=False)"
+                   t-as="doc">
+
+                    <t t-foreach="int(doc.product_qty)" t-as="i">
+                        <tr>
+                            <td>
+                                <span t-field="doc.date"/>
+                            </td>
+                            <td>
+                                <span t-field="doc.x_studio_sales_order"/>
+                            </td>
+                            <td>
+                                <span t-field="doc.x_studio_customer_name"/>
+                            </td>
+                            <td>
+                                <span t-field="doc.picking_id.sale_id.partner_id.phone"/>
+                            </td>
+
+                            <td>
+                                <span t-field="doc.picking_id.sale_id.partner_id.email"/>
+                            </td>
+                            <td>
+                                <span t-field="doc.product_id"/>
+                                <t t-set="total" t-value="total + 1"/>
+                            </td>
+                        </tr>
+                    </t>
+                </t>
+                <h3>Total Quantity:
+                    <t t-esc="total"/>
+                </h3>
+
+            </xpath>
+
+        </template>
+
+
+    </data>
+</odoo>

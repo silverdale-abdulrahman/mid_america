@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="action_report_delivery_with_price" model="ir.actions.report">
+            <field name="name">Delivery Slip With Price</field>
+            <field name="model">stock.picking</field>
+            <field name="report_type">qweb-pdf</field>
+            <field name="report_name">delivery_slip_with_pricing.report_deliveryslip_with_price</field>
+            <field name="report_file">delivery_slip_with_pricing.report_deliveryslip_with_price</field>
+            <field name="print_report_name">'Delivery Slip with price - %s - %s' % (object.partner_id.name or '',
+                object.name)
+            </field>
+            <field name="binding_model_id" ref="stock.model_stock_picking"/>
+            <field name="binding_type">report</field>
+        </record>
+
+
+<!--        <record id="stock_picking_form_custom_r_view" model="ir.ui.view">-->
+<!--            <field name="name">stock.picking.form.view.custom.r</field>-->
+<!--            <field name="model">stock.picking</field>-->
+<!--            <field name="inherit_id" ref="stock.view_picking_form" />-->
+<!--            <field name="arch" type="xml">-->
+<!--                <xpath expr="//field[@name='move_ids_without_package']//tree//field[@name='quantity_done']" position="after">-->
+<!--                    <field name="so_line_price" store="True"/>-->
+<!--&lt;!&ndash;                    <field name="gift_check" invisible=""/>&ndash;&gt;-->
+<!--                </xpath>-->
+<!--            </field>-->
+<!--        </record>-->
+
+    </data>
+</odoo>

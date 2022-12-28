@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <record id="view_stock_quant_tree_editable" model="ir.ui.view">
+            <field name="name">stock.quant.list.view.inherit</field>
+            <field name="model">stock.quant</field>
+            <field name="inherit_id" ref="stock.view_stock_quant_tree_editable"/>
+            <field name="arch" type="xml">
+                <xpath expr="//tree/field[@name='product_id']" position="after">
+                    <field name="product_categ_id"/>
+                </xpath>
+            </field>
+        </record>
+
+        <record id="quant_search_view" model="ir.ui.view">
+            <field name="name">stock.quant.search.view.inherit</field>
+            <field name="model">stock.quant</field>
+            <field name="inherit_id" ref="stock.quant_search_view"/>
+            <field name="arch" type="xml">
+                <xpath expr="//search/field[@name='location_id']" position="after">
+                    <field name="product_categ_id"/>
+                </xpath>
+                <xpath expr="//search/group/filter[@name='on_hand']" position="before">
+                    <filter name="product_category" string="Product Category" domain="[('product_categ_id', '!=', False)]"/>
+                </xpath>
+                <xpath expr="//group[2]/filter[@name='locationgroup']" position="after">
+                    <filter string='Product Category' name="product_category" domain="[]" context="{'group_by': 'product_categ_id'}"/>
+                </xpath>
+            </field>
+        </record>
+
+    </data>
+</odoo>

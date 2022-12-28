@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="product_barcode_type_view_form" model="ir.ui.view">
+            <field name="name">product_barcode_view_form</field>
+            <field name="model">product.barcode.type</field>
+            <field name="arch" type="xml">
+                <form string="product_barcode_view_form">
+                    <sheet>
+                        <group>
+                            <field name="name"/>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+        <record id="product_barcode_type_view_tree" model="ir.ui.view">
+            <field name="name">product_barcode_view_tree</field>
+            <field name="model">product.barcode.type</field>
+            <field name="arch" type="xml">
+                <tree string="product_barcode_type_tree">
+                    <field name="name"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="product_barcode_type_view_search" model="ir.ui.view">
+            <field name="name">product_barcode_type_view_search</field>
+            <field name="model">product.barcode.type</field>
+            <field name="arch" type="xml">
+                <search string="">
+                    <field name="name" string="Barcode"/>
+                </search>
+            </field>
+        </record>
+
+        <record id="product_barcode_type_action" model="ir.actions.act_window">
+            <field name="name">product_barcode_action</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">product.barcode.type</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+        <!-- This Menu Item must have a parent and an action -->
+        <menuitem id="product_barcode_type_menu" name="Product Barcodes Types" parent="stock.menu_stock_inventory_control"
+                  action="product_barcode_type_action" sequence="2"/>
+    </data>
+</odoo>

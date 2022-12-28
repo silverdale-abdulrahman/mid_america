@@ -1,0 +1,19 @@
+<templates>
+    <t t-name="SdMailComposerInherit" t-inherit="mail.Composer" t-inherit-mode="extension" owl="1">
+        <xpath expr="//small[hasclass('o_Composer_followers')]" position="replace">
+            <b class="text-muted">To:</b>
+        </xpath>
+    </t>
+
+    <t t-name="SdMailMessageInherit" t-inherit="mail.Message" t-inherit-mode="extension" owl="1">
+        <xpath expr="//div[hasclass('o_Message_content')]" position="before">
+            <small>
+
+                <p t-if="message.email_bcc">
+                    <b>Bcc :</b>
+                    <t t-esc="message.email_bcc"/>
+                </p>
+            </small>
+        </xpath>
+    </t>
+</templates>

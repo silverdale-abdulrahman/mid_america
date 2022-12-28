@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record model="ir.ui.view" id="sd_multi_barcode_pos_inherit_product_template_barcode_form_view">
+            <field name="name">sd_multi_barcode_pos.inherit.product.template.barcode</field>
+            <field name="model">product.template</field>
+            <field name="inherit_id" ref="sd_multi_barcode.product_template_barcode_form_view"/>
+            <field name="arch" type="xml">
+                <xpath expr="//notebook/page[@name='barcode']" position="inside">
+                    <field name="barcode_ids_list" invisible="1"/>
+                </xpath>
+            </field>
+        </record>
+    </data>
+</odoo>

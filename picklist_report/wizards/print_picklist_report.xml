@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<odoo>
+    <record id="print_picklist_report_form_record_id" model="ir.ui.view">
+        <field name="name">Print Picklist Report</field>
+        <field name="model">picklist.report.selection</field>
+        <field name="arch" type="xml">
+            <form string="Select Sale Order to print/Download Picklist Report" >
+                <group>
+                    <group>
+                        <field name="sale_order" widget="many2many_tags" domain="[('picking_ids','!=',False),('picking_ids.state','=','assigned')]" context="{
+                        'search_view_ref': 'sale.view_sales_order_filter' , 'tree_view_ref': 'sale.view_order_tree'}" options="{'no_create_edit':True,'no_create':True}" default_order="name desc"/>
+
+                    </group>
+
+                </group>
+                <footer>
+                    <button string="Print Report"  type="object" class="btn-default btn-primary" name="print_picklist_report" />
+                    <button string="Print Delivery Report"  type="object" class="btn-default btn-primary" name="print_delivery_report_without_price" />
+                    <button string="Print Delivery Report With Price"  type="object" class="btn-default btn-primary" name="print_delivery_report_price" />
+                    <button string="Validate"  type="object" class="btn-default btn-primary" name="validate_delivery_orders_wizard" />
+
+                </footer>
+            </form>
+
+        </field>
+    </record>
+
+    <record id="print_picklist_report_record_id" model="ir.actions.act_window">
+        <field name="name">Print Picklist Report</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">picklist.report.selection</field>
+        <field name="view_mode">form</field>
+
+        <field name="target">new</field>
+    </record>
+
+        <!-- Add submenu in Inventory Report    -->
+     <menuitem id="picklist_report_ids" name="Print Batch Picklist Report"
+              parent="stock.menu_warehouse_report" sequence="110"
+              action="print_picklist_report_record_id"/>
+
+
+</odoo>

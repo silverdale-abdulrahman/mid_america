@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="diglist_pdf_report_paperformat" model="report.paperformat">
+        <field name="name">Dig List Pdf</field>
+        <field name="default" eval="True"/>
+        <field name="format">custom</field>
+        <field name="page_height">280</field>
+        <field name="page_width">220</field>
+        <field name="orientation">Portrait</field>
+        <field name="margin_top">00</field>
+        <field name="margin_bottom">00</field>
+        <field name="margin_left">00</field>
+        <field name="margin_right">00</field>
+        <field name="header_line" eval="False"/>
+        <field name="header_spacing">00</field>
+        <field name="dpi">90</field>
+    </record>
+
+
+    <record id="diglist_pdf_report_action" model="ir.actions.report">
+        <field name="name">Dig List Pdf</field>
+        <field name="model">stock.move.line</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">picklist_report.report_diglist_stock_pdf</field>
+        <field name="report_file">picklist_report.report_diglist_stock_pdf</field>
+        <field name="print_report_name">'%s - DigList ' % (object.product_id.display_name).replace('/', '')</field>
+        <field name="binding_model_id" ref="stock.model_stock_move_line"/>
+        <field name="binding_type">report</field>
+        <field name="paperformat_id" ref="picklist_report.diglist_pdf_report_paperformat"/>
+    </record>
+
+
+    <template id="report_diglist_stock_pdf">
+        <t t-call="web.html_container">
+            <t t-call="web.basic_layout">
+                <div class="page" style="font-weight: bold">
+                    <t t-set="page_number" t-value="0"/>
+                    <t t-set="top_value" t-value="10"/>
+                    <t t-foreach="docs" t-as="doc">
+                        <t t-set="page_number" t-value="((doc_index) // 22) + 1"/>
+                        <t t-set="value_index" t-value="(doc_index + 1) - (22 * (page_number - 1))"/>
+                        <t t-if="doc_index % 22 == 0">
+                            <t t-set="top_value" t-value="1241 * (page_number -1) + 18"/>
+                        </t>
+                        <t t-else="">
+                            <t t-set="top_value" t-value="top_value + 56"/>
+                        </t>
+
+                        <div t-attf-style="position: absolute; left: 50px; top: #{top_value}px">
+                             <span t-esc="doc.reference[-4:]"/>
+                        </div>
+                        <div t-attf-style="overflow: hidden; white-space: nowrap; position: absolute; left: 175px; top: #{top_value}px">
+                            <t t-if="doc.product_id.short_name">
+                                <span t-esc="doc.product_id.short_name[:35]"/>
+                            </t>
+
+                            <t t-else="">
+                                <span t-esc="doc.product_id.name[:40]"/>
+                            </t>
+                        </div>
+                        <div t-attf-style="position: absolute; left: 580px; top: #{top_value}px">
+                            <t t-if="doc.move_id.sale_line_id.is_substitute == 'substitute' and doc.move_id.sale_line_id.text_note">
+                                <span>Sub</span>
+                            </t>
+                            <t t-else="">
+                                <span t-esc="doc.move_id.sale_line_id.is_substitute"/>
+                            </t>
+                        </div>
+                    </t>
+                </div>
+            </t>
+        </t>
+    </template>
+
+</odoo>

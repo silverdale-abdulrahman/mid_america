@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="sale_order_for_view_inherit" model="ir.ui.view">
+            <field name="name">sale.order.form.view.inherit</field>
+            <field name="model">sale.order</field>
+            <field name="inherit_id" ref="sale.view_order_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='payment_term_id']" position="after">
+                    <div class="row">
+                        <label for="substitute_checkbox" string="Substitutes Not Allowed"
+                               style="color:red; margin-left:17px;" bg_color="bg-success"
+                               attrs="{'invisible': [('substitute_checkbox', '=', True)]}"/>
+                        <label for="substitute_checkbox" string="Substitutes Allowed"
+                               style="color:green; margin-left:17px;" bg_color="bg-danger"
+                               attrs="{'invisible': [('substitute_checkbox', '=', False)]}"/>
+                        <field name="substitute_checkbox" nolabel="1" style="margin-left:20px;"/>
+                    </div>
+                </xpath>
+
+                <xpath expr="//page[hasclass('delivery_date')]" position="after">
+                    <page name="note" string="Note">
+                        <field name="substitute_note" placeholder="Add Notes Here"/>
+                    </page>
+                </xpath>
+                <xpath expr="//group[@name='note_group']" position="inside">
+                    <group colspan="4">
+                        <field name="substitute_note" placeholder="Add Substitution Notes Here" nolabel="1"/>
+                    </group>
+                </xpath>
+                <xpath expr="//field[@name='order_line']/tree/field[@name='product_id']" position="after">
+                    <field name="is_substitute" optional="hide"/>
+                </xpath>
+            </field>
+        </record>
+
+    </data>
+</odoo>

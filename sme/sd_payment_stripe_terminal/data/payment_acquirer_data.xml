@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+  <data noupdate="1">
+        <record id="payment_acquirer_cconnect" model="payment.acquirer">
+            <field name="name">Stripe Terminal</field>
+            <field name="provider">stripe_terminal</field>
+            <field name="company_id" ref="base.main_company"/>
+            <field name="view_template_id" ref="sd_payment_stripe_terminal.stripe_terminal_form"/>
+            <field name="image_128" type="base64" file="sd_payment_stripe_terminal/static/src/img/banner.png"/>
+            <field name="registration_view_template_id" ref="sd_payment_stripe_terminal.stripe_terminal_checkout_s2s_form"/>
+
+        </record>
+
+
+      </data>
+</odoo>

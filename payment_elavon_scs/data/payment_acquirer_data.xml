@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo noupdate="1">
+    <record id="payment_acquirer_elavon_pay" model="payment.acquirer">
+        <field name="name">Elavon</field>
+        <field name="provider">elavon</field>
+        <field name="image_128" type="base64"
+            file="payment_elavon_scs/static/src/img/elavon_pay.jpg" />
+        <field name="company_id" ref="base.main_company" />
+        <field name="view_template_id" ref="elavon_s2s_form" />
+        <field name="state">test</field>
+        <field name="mid">11111</field>
+        <field name="user_id">11111</field>
+        <field name="pin">lHHGIUYI75jhhjgHKH4646546fhfhHhhh</field>
+        <field name="pre_msg"><![CDATA[
+          <p>You will be redirected to the Elavon website after clicking on the payment button.</p>]]>
+        </field>
+        <field name="description" type="html">
+            <p>
+                A Elavon payment gateway to accept online payments via credit cards.
+            </p>
+            <ul class="list-inline">
+                <li><i class="fa fa-check"/>Online Payment</li>
+                <li><i class="fa fa-check"/>Payment Status Tracking</li>
+            </ul>
+       </field>
+    </record>
+</odoo>

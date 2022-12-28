@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data>
+        <template id="categories_recursive" name="Category list">
+            <head>
+                <style>
+                    .card-body {
+                    background-color: rgba(255, 255, 255) !important;
+                    color: #212529;
+                    }
+                </style>
+            </head>
+            <div class="card col-md-3" style="float:left;height:292px">
+
+
+                <span t-field="c.image_512" style="max-height:192px"
+                      t-options="{'widget': 'image', 'preview_image': 'image_512' }"
+                      class="d-flex h-100 justify-content-center align-items-center"/>
+
+                <div class="card-body" style="height:100px;">
+                    <h6 class="o_wsale_products_item_title">
+                        <a t-att-href="keep('/shop/category/' + slug(c), category=0)"
+                           t-attf-class="nav-link #{'active' if c.id == category.id else ''}" itemprop="name" t-att-content="c.name" t-field="c.name">
+                        </a>
+                    </h6>
+                </div>
+            </div>
+        </template>
+
+        <template id="categories" name="Categories">
+            <t t-call="website.layout">
+                <t t-set="additional_title">Categories</t>
+                <div id="wrap" class="js_sale">
+                    <div class="oe_structure oe_empty" id="oe_structure_website_sale_products_1"/>
+                    <div class="container oe_website_sale">
+                        <div class="btn-group btn-group-toggle mt-2 ml-md-2 d-none d-sm-inline-flex o_wsale_apply_layout"
+                             data-toggle="buttons">
+
+                        </div>
+                        <div class="row o_wsale_products_main_row">
+                            <div t-if="enable_left_column" id="products_grid_before" class="col-lg-3"/>
+                            <div class="collapse d-lg-block" id="wsale_products_categories_collapse">
+                                <ul class="nav nav-pills flex-column mb-2">
+                                    <strong style="font-size:30px;margin-left:22px;color:#a1a52f;" class="text-center">Categories</strong>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="card-body p-0 text-center o_wsale_product_information">
+                            <t t-foreach="categories" t-as="c">
+                                <t t-call="website_sale_ext.categories_recursive"/>
+                            </t>
+                        </div>
+                    </div>
+                    <div class="oe_structure oe_empty" id="oe_structure_website_sale_products_2"/>
+                </div>
+            </t>
+        </template>
+        <template id="website_sale.products_categories" inherit_id="website_sale.products" active="False" customize_show="True" name="eCommerce Categories">
+            <xpath expr="//div[@id='products_grid_before']" position="before">
+                <t t-set="enable_left_column" t-value="True"/>
+            </xpath>
+            <xpath expr="//div[@id='products_grid_before']" position="inside">
+                <button type="button" class="btn btn-link d-lg-none"
+                        data-target="#wsale_products_categories_collapse" data-toggle="collapse">
+                    Show categories
+                </button>
+                <div class="collapse d-lg-block" id="wsale_products_categories_collapse">
+                    <ul class="nav nav-pills flex-column mb-2">
+                        <li class="nav-item">
+                            <a t-att-href="keep('/shop', category=0)" t-attf-class="nav-link #{'' if category else 'active'} o_not_editable">All Products</a>
+                        </li>
+                        <t t-foreach="categories" t-as="c">
+                            <t t-call="website_sale.categories_recursive" />
+                        </t>
+                    </ul>
+                </div>
+            </xpath>
+        </template>
+
+        <template id="reduction_code_inherited" inherit_id="website_sale.reduction_code" customize_show="True" name="Promo Code">
+            <xpath expr="//tr/td/span/t[2]/a" position="replace">
+                <t t-if="website_sale_order.pricelist_id and not website_sale_order.pricelist_id.is_hide_promo_website">
+                    <a href="#" class="show_coupon">I have a promo code</a>
+                </t>
+            </xpath>
+        </template>
+
+    </data>
+</odoo>

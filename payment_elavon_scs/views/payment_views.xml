@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="acquirer_form_elavon_pay" model="ir.ui.view">
+        <field name="name">acquirer.form.elavon_pay</field>
+        <field name="model">payment.acquirer</field>
+        <field name="inherit_id" ref="payment.acquirer_form" />
+        <field name="arch" type="xml">
+            <xpath expr='//group[@name="acquirer"]' position='after'>
+                <group attrs="{'invisible': [('provider', '!=', 'elavon')]}">
+                    <field name="mid"/>
+                    <field name="user_id"/>
+                    <field name="pin"/>
+                </group>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="transaction_form_elavon" model="ir.ui.view">
+        <field name="name">acquirer.transaction.form.elavon</field>
+        <field name="model">payment.transaction</field>
+        <field name="inherit_id" ref="payment.transaction_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//sheet/group[last()]" position="after">
+                <field name="provider" invisible="1"/>
+                <notebook>
+                    <page string="Elavon TX Details">
+                         <group>
+                             <field name="elavon_txn"/>
+                         </group>
+                     </page>
+                 </notebook>
+            </xpath>
+        </field>
+    </record>
+
+</odoo>

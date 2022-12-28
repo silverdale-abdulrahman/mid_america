@@ -1,0 +1,15 @@
+<odoo>
+  <data>
+    <record id="model_stock_inventory_line_action_200_product_qty" model="ir.actions.server">
+      <field name="name">Set counted quantities to 200</field>
+      <field name="model_id" ref="stock.model_stock_inventory_line"/>
+      <field name="binding_model_id" ref="stock.model_stock_inventory_line"/>
+      <field name="sequence">4</field>
+      <field name="state">code</field>
+      <field name="code">
+if records:
+  action = records.action_reset_product_200_qty()
+      </field>
+  </record>
+  </data>
+</odoo>

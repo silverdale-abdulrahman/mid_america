@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="report_saleorder_document_discount" inherit_id="sale.report_saleorder_document">
+        <xpath expr="//div[@name='so_total_summary']//table//tr[1]" position="after">
+            <t t-if="doc.amount_delivery != 0">
+                <tr class="border-black o_subtotal" style="">
+                    <td name="td_amount_discount_label">
+                        <strong>Shipping Charge</strong>
+                    </td>
+                    <td name="td_amount_shipping_charge" class="text-right">
+                        <span t-field="doc.amount_delivery"/>
+                    </td>
+                </tr>
+            </t>
+            <t t-if="doc.discount_amount != 0">
+                <tr class="border-black o_subtotal" style="">
+                    <td name="td_amount_discount_label">
+                        <strong>Discount</strong>
+                    </td>
+                    <td name="td_amount_discount" class="text-right">
+                        <span t-field="doc.discount_amount"/>
+                    </td>
+                </tr>
+            </t>
+        </xpath>
+        <xpath expr="//div[@name='so_total_summary']//table//td[@name='td_amount_untaxed']" position="replace">
+            <td name="td_amount_untaxed" class="text-right">
+                <span t-field="doc.untaxed_amount_discount"/>
+            </td>
+        </xpath>
+    </template>
+
+
+
+</odoo>

@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data>
+        <template id="website_shop_product_carousel_inherit" inherit_id="website_sale.shop_product_carousel" name="Product Shop Carousel">
+            <xpath expr="//div[hasclass('slide')]" position="attributes">
+                <attribute name="style">height: 519px;max-height: 132vh;</attribute>
+            </xpath>
+            <xpath expr="//div[hasclass('position-relative')]" position="attributes">
+                <attribute name="style">height: 519px;max-height: 132vh;</attribute>
+            </xpath>
+        </template>
+
+    </data>
+</odoo>

@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<odoo>
+    <template id="assets_backend" name="SD assets" inherit_id="web.assets_backend">
+        <xpath expr="." position="inside">
+            <link rel="stylesheet" type="text/scss" href="/sd_base_setup/static/src/css/sd_status_menu.css"/>
+            <script type="text/javascript" src="/sd_base_setup/static/lib/js/pyeval.js"/>
+            <script type="text/javascript" src="/sd_base_setup/static/src/js/sd_status_menu.js"/>
+        </xpath>
+    </template>
+</odoo>

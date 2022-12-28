@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="assets_backend" name="CRM assets backend" inherit_id="web.assets_backend">
+        <xpath expr="." position="inside">
+            <script type="text/javascript" src="/sd_widgets/static/src/js/domain_selector_extend.js"/>
+            <script type="text/javascript" src="/sd_widgets/static/src/js/basic_fields_extend.js"/>
+            <script type="text/javascript" src="/sd_widgets/static/src/js/domain_selector_dialog_extend.js"/>
+        </xpath>
+    </template>
+</odoo>

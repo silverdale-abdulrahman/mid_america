@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="assets_frontend" inherit_id="web.assets_frontend" name="Elavon Website Assets">
+        <xpath expr="." position="inside">
+            <script src="/payment_elavon_scs/static/src/js/main.js"></script>
+        </xpath>
+    </template>
+    <template id="payment_customized" name="payment_customized" inherit_id="website_sale.payment">
+        <xpath expr="." position="inside">
+            <div class="value_for_model">
+                <input type="hidden" class="sale_order_id" t-att-value="website_sale_order.id"/>
+                <input type="hidden" class="sale_order_id" t-att-value="website_sale_order.id"/>
+            </div>
+        </xpath>
+    </template>
+    <template name="Failed" id="payment_elavon_scs.Failed">
+        <t t-call="website.layout">
+            <div class="container" id="elavon_section">
+                <div id="wrap" t-attf-class="wrapper">
+                    <div class="row">
+                        <div class="col-md-10" align="center">
+                            <form action="/shop/payment" class="form-horizontal mt32" onsubmit="" method="post">
+                                <div class='row div_head' style='height:80px;'>
+                                    <div class='col-md-3' style='margin-left:10%'>
+                                        <img src='/payment_elavon_scs/static/src/img/failed.jpg' width='75px'
+                                             height='75px' style="margin-left: 249px;"></img>
+                                    </div>
+                                    <div class='col-md-6'>
+                                        <h2>
+                                            <b>Transaction Failed</b>
+                                        </h2>
+                                    </div>
+                                </div>
+                                <div class='row div_head' align='center' style='height:30px;'>
+                                    <div class="col-md-8" style='margin-left:173px;'>
+                                        Reason:
+                                        <t t-esc='error'/>
+                                    </div>
+                                </div>
+                                <div class='row div_head' align='center' style='height:30px; margin-left: 130px;'>
+                                    <div class="col-md-3" style='margin-left:200px;'>
+                                        <a href='/shop/payment' width="100px" id='id_submit' class="btn btn-success">
+                                            Return to Shopping Cart
+                                        </a>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <a href='/' width="100px" id='id_submit' class="btn btn-success">
+                                            Back to Home Page
+                                        </a>
+                                    </div>
+                                </div>
+                                <div class="clearfix"/>
+                                <br/>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </t>
+    </template>
+    <template id="elavon_s2s_form">
+        <input type="hidden" class="acquirer_unique_id" name="acquirer_unique_id" t-att-value="acquirer.id"/>
+        <input type="hidden" class="acquirer_name" name="acquirer_name" t-att-value="acquirer.provider"/>
+        <input type="hidden" class="data_set" name="data_set" t-att-data-action-url="tx_url" data-remove-me=""/>
+        <input type="hidden" class="ssl_merchant_id" name="ssl_merchant_id" t-att-value="merchant_id"/>
+        <input type="hidden" class="ssl_user_id" name="ssl_user_id" t-att-value="user_id"/>
+        <input type="hidden" class="ssl_pin" name="ssl_pin" t-att-value="pin"/>
+        <input type="hidden" class="ssl_show_form" name="ssl_show_form" t-att-value="false"/>
+        <input type="hidden" class="ssl_test_mode" name="ssl_test_mode" t-att-value="true"/>
+        <input type="hidden" class="ssl_transaction_type" name="ssl_transaction_type" t-att-value="server_type"/>
+        <input type="hidden" class="ssl_amount" name="ssl_amount" t-att-value="amount"/>
+        <input type="hidden" class="ssl_invoice_number" name="ssl_invoice_number" t-att-value="invoice_number"/>
+        <input type="hidden" class="ssl_email" name="ssl_email" t-att-value="email"/>
+        <input type="hidden" class="ssl_first_name" name="ssl_first_name" t-att-value="first_name"/>
+        <input type="hidden" class="ssl_last_name" name="ssl_last_name" t-att-value="last_name"/>
+        <input type="hidden" class="ssl_avs_address" name="ssl_avs_address" t-att-value="address1"/>
+        <input type="hidden" class="ssl_city" name="ssl_city" t-att-value="city"/>
+        <input type="hidden" class="ssl_state" name="ssl_state" t-att-value="state"/>
+        <input type="hidden" class="ssl_avs_zip" name="ssl_avs_zip" t-att-value="zip_code"/>
+        <input type="hidden" class="ssl_country" name="ssl_country" t-att-value="country"/>
+        <input type="hidden" class="ssl_phone" name="ssl_phone" t-att-value="phone"/>
+        <input type="hidden" class="ssl_result_format" name="ssl_result_format" value="HTML"/>
+        <input type="hidden" class="ssl_receipt_apprvl_method" name="ssl_receipt_apprvl_method" value="REDG"/>
+        <input type="hidden" class="ssl_receipt_method" name="ssl_receipt_method" value="REDG"/>
+        <input t-if="approval_url" class="ssl_receipt_apprvl_get_url" type="hidden" name="ssl_receipt_apprvl_get_url"
+               t-att-value="approval_url"/>
+        <input t-if="approval_url" class="ssl_receipt_apprvl_post_url" type="hidden" name="ssl_receipt_apprvl_post_url"
+               t-att-value="approval_url"/>
+        <input type="text" class="ssl_decl_method" name="ssl_decl_method" value="POST"/>
+        <input t-if="decline_url" type="text" class="ssl_error_url" name="ssl_error_url" t-att-value="decline_url"/>
+        <input t-if="decline_url" type="text" class="ssl_receipt_decl_get_url" name="ssl_receipt_decl_get_url"
+               t-att-value="decline_url"/>
+    </template>
+    <template id="online_invoice_customized" inherit_id="portal.portal_sidebar">
+
+ <xpath expr="//div[hasclass('o_portal_sidebar')]" position="inside">
+     <t t-if="invoice">
+        <input type="hidden" class="inv_id" t-att-value="invoice.id"/>
+     </t>
+ </xpath>
+
+    </template>
+
+
+
+
+<!--    <template id="website_payment_thorough_link_template_inherit" inherit_id="payment.pay">-->
+<!--        <xpath expr="//div[hasclass('col-lg-7')]" position="replace">-->
+<!--            <div class="col-lg-7">-->
+<!--                <p><b>Reference:</b> <t class='reference' id="reference" t-esc="reference"/></p>-->
+<!--&lt;!&ndash;                <input type="hidden" name="reference" class="reference" t-att-value="reference"/>&ndash;&gt;-->
+<!--                <p><b>Amount:</b> <t t-esc="amount" t-options="{'widget': 'monetary', 'display_currency': currency}"/></p>-->
+<!--                <t t-call="payment.payment_tokens_list" t-if="reference and amount and currency">-->
+<!--                    <t t-set="mode" t-value="'payment'"/>-->
+<!--                    <t t-set="prepare_tx_url" t-value="'/website_payment/transaction/v2/' + str(amount) + '/' + str(currency.id) + '/' + reference + (('/' + str(partner_id)) if partner_id else '')"/>-->
+<!--                    <t t-set="form_action" t-value="'/website_payment/token/v2/' + str(amount) + '/' + str(currency.id) + '/' + reference + (('/' + str(partner_id)) if partner_id else '')"/>-->
+<!--                </t>-->
+<!--                <div t-if="not acquirers" class="alert alert-danger" role="alert">-->
+<!--                    <p>No payment acquirer found.</p>-->
+<!--                    <p>Please configure a payment acquirer.</p>-->
+<!--                </div>-->
+<!--            </div>-->
+<!--        </xpath>-->
+<!--    </template>-->
+
+    <template id="website_payment_tokens_list_template_inherit" inherit_id="payment.payment_tokens_list">
+        <xpath expr="//form" position="inside">
+            <input type="hidden" t-if="reference" name="reference" t-att-value="reference"/>
+        </xpath>
+    </template>
+</odoo>

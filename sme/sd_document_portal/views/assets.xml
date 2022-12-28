@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<odoo>
+    <template id="assets_backend" name="Documents Portal assets backend" inherit_id="web.assets_backend">
+        <xpath expr="." position="inside">
+            <script type="text/javascript" src="/sd_document_portal/static/src/js/documents_view_mixin.js"/>
+            <script type="text/javascript" src="/sd_document_portal/static/src/js/documents_inspector.js"/>
+            <script type="text/javascript" src="/sd_document_portal/static/src/js/documents_controller_mixin.js"/>
+        </xpath>
+    </template>
+</odoo>

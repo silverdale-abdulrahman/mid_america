@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="website_sale.website_sale_visitor_track_view_graph" model="ir.ui.view">
+        <field name="name">website.track.view.graph</field>
+        <field name="model">website.track</field>
+        <field name="inherit_id" ref="website.website_visitor_track_view_graph"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field" position="inside">
+                <field name="product_id"/>
+            </xpath>
+        </field>
+    </record>
+        <record id="website.website_visitor_track_view_graph" model="ir.ui.view">
+        <field name="name">website.track.view.graph</field>
+        <field name="model">website.track</field>
+        <field name="arch" type="xml">
+            <graph string="Visitor Views" sample="1" type="line">
+                <field name="page_id"/>
+            </graph>
+        </field>
+    </record>
+
+
+<!--        <record id="website.website_visitor_view_action" model="ir.actions.act_window">-->
+<!--            <field name="name">Views</field>-->
+<!--            <field name="type">ir.actions.act_window</field>-->
+<!--            <field name="res_model">website.track</field>-->
+<!--            <field name="view_mode">tree</field>-->
+<!--            <field name="domain">[('visit_datetime', '>', (datetime.datetime.combine(context_today() + relativedelta(days=-7), datetime.time(0,0,0)).to_utc()).strftime('%Y-%m-%d %H:%M:%S'))]</field>-->
+<!--            <field name="context">{'search_default_type_url': 1, 'create': False, 'edit': False, 'copy': False}</field>-->
+<!--            <field name="view_ids" eval="[(5, 0, 0),-->
+<!--            (0, 0, {'view_mode': 'tree', 'view_id': ref('website.website_visitor_track_view_tree')}),-->
+<!--            (0, 0, {'view_mode': 'graph', 'view_id': ref('website.website_visitor_track_view_graph')}),-->
+<!--        ]"/>-->
+<!--            <field name="help" type="html">-->
+<!--                <p class="o_view_nocontent_smiling_face">-->
+<!--                    Wait for visitors to come to your website to see the pages they viewed.-->
+<!--                </p>-->
+<!--            </field>-->
+<!--        </record>-->
+
+    </data>
+</odoo>

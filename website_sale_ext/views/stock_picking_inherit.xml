@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="stock_picking_form_view_substitute_note" model="ir.ui.view">
+        <field name="name">stock.picking.form.view</field>
+        <field name="model">stock.picking</field>
+        <field name="inherit_id" ref="stock.view_picking_form" />
+    <field name="arch" type="xml">
+            <xpath expr="//field[@name='origin']" position="after">
+                <div class="row">
+                   <label for="substitute_checkbox" string="Substitutes Not Allowed" style="color:red; margin-left:17px;" bg_color="bg-success"
+                    attrs="{'invisible': [('substitute_checkbox', '=', True)]}"/>
+                    <label for="substitute_checkbox" string="Substitutes Allowed" style="color:green; margin-left:17px;" bg_color="bg-danger"
+                    attrs="{'invisible': [('substitute_checkbox', '=', False)]}"/>
+                    <field name="substitute_checkbox" nolabel="1" style="margin-left:20px;"/>
+                </div>
+
+                <field name="substitute_note" invisible="1"/>
+                <field name="total_count_products" style="font-weight: bold;"/>
+            </xpath>
+            <xpath expr="//page[@name='extra']//field[@name='company_id']" position="after">
+                <field name="payment_delivery_interval"/>
+            </xpath>
+        </field>
+    </record>
+
+    </data>
+</odoo>

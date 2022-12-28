@@ -1,0 +1,10 @@
+<?xml version="1.0" ?>
+<odoo>
+    <data>
+        <template id="assets_frontend" inherit_id="website.assets_frontend" name="SD Slides Video">
+            <xpath expr="//script[last()]" position="after">
+                <script type="text/javascript" src="/sd_website_slides_video/static/src/js/slides_course_fullscreen_player.js"/>
+            </xpath>
+        </template>
+    </data>
+</odoo>

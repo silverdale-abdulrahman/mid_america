@@ -1,0 +1,152 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <template id="assets_frontend" name="assets_frontend" inherit_id="web.assets_common">
+        <xpath expr="." position="inside">
+            <script type="text/javascript" src='/sd_payment_stripe_terminal/static/src/js/stripe_terminal_form.js'/>
+            <script type="text/javascript" src="https://js.stripe.com/terminal/v1/"/>
+        </xpath>
+    </template>
+
+
+    <template id="stripe_terminal_template_modal" name="Stripe Terminal">
+
+        <div id="myModal" class="modal fade" role="dialog" data-backdrop="static" data-keyboard="false">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <div class="display-td">
+                            <h3>Stripe Payment Terminal</h3>
+                        </div>
+                        <h3 class="modal-title"/>
+
+                    </div>
+                    <div class="modal-body">
+
+
+                        <form method="post" action="/cancel/payment" class="">
+
+                            <input id="csrf_token" type="hidden" name="csrf_token" t-att-value="request.csrf_token()"/>
+                            <input id="order_id" type="hidden" name="order Id"
+                                   t-att-value='order'/>
+                            <input id='acq_id' type="hidden" name="Acquirer" t-att-value='acquirer_id'/>
+                            <input id="order_type" type="hidden" name="order type" t-att-value='order_type'/>
+
+                            <div class="panel panel-default credit-card-box">
+                                <div class="panel-body">
+                                    <div class="col-sm-12" style="font-size:3em; text-align:center; background:#94518c; width: 450px; height: 450px; display: flex;
+                    align-items: center; justify-content: center; border-radius: 50%; flex-direction: column;
+                    color: white; margin: auto;">
+                                        <div>
+                                            <p class="code success">Payment request sent to Stripe Terminal. Please wait
+                                            </p>
+                                        </div>
+                                    </div>
+
+                                </div>
+
+                            </div>
+
+                        </form>
+                        <!-- </t> -->
+                    </div>
+                    <div class="modal-footer">
+
+
+                        <div id="showGrower"></div>
+                        <button id="cancel_payment" type="button">Cancel Request</button>
+
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </template>
+
+    <template id="stripe_terminal_template_modal_waiting_card" name="Stripe Terminal">
+
+        <div id="myModalCard" class="modal fade" role="dialog" data-backdrop="static" data-keyboard="false">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <div class="display-td">
+                            <h3>Stripe Payment Terminal</h3>
+                        </div>
+                        <h3 class="modal-title"/>
+
+                    </div>
+                    <div class="modal-body">
+
+
+                        <form method="post" action="/cancel/payment" class="">
+
+                            <input id="csrf_token" type="hidden" name="csrf_token" t-att-value="request.csrf_token()"/>
+                            <input id="order_id" type="hidden" name="order Id"
+                                   t-att-value='order'/>
+                            <input id='acq_id' type="hidden" name="Acquirer" t-att-value='acquirer_id'/>
+                            <input id="order_type" type="hidden" name="order type" t-att-value='order_type'/>
+
+                            <div class="panel panel-default credit-card-box">
+                                <div class="panel-body">
+                                    <div class="col-sm-12" style="font-size:3em; text-align:center; background:#94518c; width: 450px; height: 450px; display: flex;
+                    align-items: center; justify-content: center; border-radius: 50%; flex-direction: column;
+                    color: white; margin: auto;">
+                                        <div>
+                                            <p class="code success">Please swipe the Card...</p>
+                                        </div>
+                                    </div>
+
+                                </div>
+
+                            </div>
+
+                        </form>
+                        <!-- </t> -->
+                    </div>
+                    <div class="modal-footer">
+
+
+                        <div id="showGrower"></div>
+                        <button id="cancel_payment" type="button">Cancel Request</button>
+
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </template>
+
+    <template id="stripe_terminal_checkout_s2s_form">
+        <div class="mt8">
+            <div t-att-class="'row' if bootstrap_formatting else ''">
+                <div t-att-class="'form-group col-md-8' if bootstrap_formatting else 'form-group'">
+                    <label class="control-label" for="cc_number">Card number</label>
+                    <input type="tel" name="cc_number" id="cc_number" class="form-control"
+                           placeholder="&#8226;&#8226;&#8226;&#8226;&#32;&#8226;&#8226;&#8226;&#8226;&#32;&#8226;&#8226;&#8226;&#8226;&#32;&#8226;&#8226;&#8226;&#8226;&#32;"/>
+                    <div class="card_placeholder"></div>
+                    <div class="visa"></div>
+                    <input type="hidden" name="cc_brand" value=""/>
+                </div>
+                <div t-att-class="'form-group col-md-4' if bootstrap_formatting else 'form-group'">
+                    <label class="control-label" for="cc_cvc">CVC</label>
+                    <input type="text" name="cc_cvc" id="cc_cvc" class="form-control" maxlength="4" placeholder="CVC"/>
+                </div>
+                <div t-att-class="'form-group col-md-7' if bootstrap_formatting else 'form-group'">
+                    <label class="control-label" for="cc_holder_name">Name</label>
+                    <input type="text" name="cc_holder_name" id="cc_holder_name" class="form-control"/>
+                </div>
+                <div t-att-class="'form-group col-md-5' if bootstrap_formatting else 'form-group'">
+                    <label class="control-label" for="cc_expires_mm">Expires</label>
+                    <input type="text" name="cc_expiry" id="cc_expiry" class="form-control" maxlength="7"
+                           placeholder="MM / YY"/>
+                </div>
+                <input type="hidden" name="acquirer_id" t-att-value="id"/>
+                <input class="hidden" name="csrf_token" t-att-value="request.csrf_token()"/>
+                <input t-if="return_url" type="hidden" name="return_url" t-att-value="return_url"/>
+                <input t-if="fees" type="hidden" name="fees" t-att-value="fees"/>
+                <input t-if="partner_id" type="hidden" name="partner_id" t-att-value="partner_id"/>
+                <div class="clearfix"/>
+            </div>
+        </div>
+    </template>
+
+</odoo>

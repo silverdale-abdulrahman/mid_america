@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Inherit Form View to Modify it -->
+<data>
+     <template id="assets_comon_inherit" name="assets_frontend" inherit_id="web.assets_common">
+        <xpath expr="." position="inside">
+
+            <script type="text/javascript" src="/sd_payment_stripe_terminal/static/src/js/refund_stripe.js"></script>
+            <script type="text/javascript" src="https://js.stripe.com/terminal/v1/"></script>
+
+
+        </xpath>
+    </template>
+
+<!--    account.move inherit-->
+    <!-- Inherit Form View to Modify it -->
+    <record id="stripe_account_move" model="ir.ui.view">
+        <field name="name">account.move.form</field>
+        <field name="model">account.move</field>
+        <field name="inherit_id" ref="account.view_move_form"/>
+        <field name="arch" type="xml">
+<!--            enable_stripe_payment-->
+
+            <xpath expr="//button[@name='preview_invoice']" position="replace">
+                <field name="enable_stripe_payment" invisible="1"/>
+                 <button name="preview_invoice" type="object" string="Refund through Stripe Terminal"  attrs="{'invisible': ['|',('enable_stripe_payment', '=', False),('move_type', 'not in', ('out_refund'))]}"/>
+                <button name="preview_invoice" type="object" string="Preview"
+                                attrs="{'invisible': ['|',('enable_stripe_payment', '=', True),('move_type', 'not in', ('out_invoice', 'out_refund'))]}"/>
+                <!-- Add your fields or attributes here -->
+            </xpath>
+
+        </field>
+    </record>
+
+    </data>
+
+</odoo>

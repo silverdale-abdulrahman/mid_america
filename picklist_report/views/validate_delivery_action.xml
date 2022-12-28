@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+<!--    <record id="action_validate_picking_from_saleorder" model="ir.actions.server">-->
+<!--            <field name="name">Validate</field>-->
+<!--            <field name="model_id" ref="sale.model_sale_order"/>-->
+<!--            <field name="binding_model_id" ref="sale.model_sale_order"/>-->
+<!--            <field name="binding_view_types">list</field>-->
+<!--            <field name="state">code</field>-->
+<!--            <field name="code">-->
+<!--                if records:-->
+<!--                res = model.validate_delivery_orders()-->
+<!--                if isinstance(res, dict):-->
+<!--                    action = res-->
+<!--            </field>-->
+<!--        </record>-->
+
+
+    <record id="action_validate_picking_from_stock_move_line" model="ir.actions.server">
+            <field name="name">Validate</field>
+            <field name="model_id" ref="stock.model_stock_move_line"/>
+            <field name="binding_model_id" ref="stock.model_stock_move_line"/>
+            <field name="binding_view_types">list</field>
+            <field name="state">code</field>
+            <field name="code">
+                if records:
+                res = model.validate_related_delivery_orders()
+                if isinstance(res, dict):
+                    action = res
+            </field>
+        </record>
+
+      <record id="view_move_line_tree_inherited_id" model="ir.ui.view">
+        <field name="name">stock.move.line</field>
+        <field name="model">stock.move.line</field>
+        <field name="inherit_id" ref="stock.view_move_line_tree"/>
+        <field name="arch" type="xml">
+
+            <xpath expr="//field[@name='product_id']" position="after">
+                <!-- Add new fields here -->
+                <field name="category_id" optional="show"/>
+                <field name="sale_order" optional="show"/>
+                <field name="delivery_interval" optional="hide"/>
+            </xpath>
+
+        </field>
+    </record>
+
+     <record id="stock_move_line_view_search_inherited" model="ir.ui.view">
+            <field name="name">stock.move.line.search</field>
+            <field name="model">stock.move.line</field>
+            <field name="inherit_id" ref="stock.stock_move_line_view_search" />
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='product_id']" position="after">
+                    <!-- Add your fields or attributes here -->
+                    <field name="sale_order"/>
+                    <field name="delivery_interval"/>
+                </xpath>
+                <xpath expr="//filter[@name='internal']" position="after">
+                    <!-- Add your fields or attributes here -->
+                    <filter string="Delivery Interval" name="delivery_interval" domain="[('delivery_interval', '!=', False)]"/>
+                </xpath>
+                <xpath expr="//filter[@name='internal']" position="after">
+                    <!-- Add your fields or attributes here -->
+                    <filter string="Delivery Interval" name="by_delivery_interval" domain="[]"  context="{'group_by': 'delivery_interval'}"/>
+                </xpath>
+
+            </field>
+        </record>
+
+
+<!--    <record id="sale_order_tree_inherit" model="ir.ui.view">-->
+<!--        <field name="name">sale.order.tree.inherit</field>-->
+<!--        <field name="model">sale.order</field>-->
+<!--        <field name="inherit_id" ref="sale.view_order_tree"/>-->
+<!--        <field name="arch" type="xml">-->
+
+<!--            <xpath expr="//field[@name='name']" position="before">-->
+<!--                &lt;!&ndash; Add new fields here &ndash;&gt;-->
+<!--                <header>-->
+<!--                    <button name="validate_delivery_orders" type="object" string="Validate" class="oe_highlight"/>-->
+<!--                </header>-->
+<!--            </xpath>-->
+
+<!--        </field>-->
+<!--    </record>-->
+
+</odoo>

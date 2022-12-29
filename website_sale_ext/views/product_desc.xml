@@ -1,6 +1,6 @@
 <odoo>
     <data>
-        <template id="products_description" inherit_id="website_sale.products_item" active="False" customize_show="True" name="Product Description">
+        <template id="products_description" inherit_id="website_sale.products_item" name="Product Description Custom">
             <xpath expr="//*[hasclass('product_price')]" position="after">
                 <div class="oe_subdescription" contenteditable="false">
                     <style>
@@ -11,15 +11,67 @@
                         }
                     </style>
                     <div itemprop="description" id="shop_product_desc" t-field="product.description_sale"/>
-
-                    <div t-if="product.sudo().virtual_available &gt; 0" class="text-success">Stock Available</div>
-                    <div t-if="product.sudo().virtual_available &lt; 0 or product.virtual_available == 0" class="text-danger">Out of stock</div>
-
-
+                    <t t-if="not product.is_sold_out">
+                        <div t-if="product.sudo().virtual_available &gt; 0" class="text-success">Stock Available</div>
+                        <div t-if="product.sudo().virtual_available &lt; 0 or product.virtual_available == 0"
+                             class="text-danger">Out of stock
+                        </div>
+                    </t>
                 </div>
+            </xpath>
+            <xpath expr="//*[hasclass('oe_product_image')]" position="inside">
+                <span t-if="product.is_sold_out" style="position: absolute;top: 5px;left: 0px;padding:3px 10px;background:red;color:white;border-radius:0px 10px 10px 0px;">SOLD OUT</span>
             </xpath>
         </template>
 
+        <!--        Hiding cart button from shop page when the checkbox is checked-->
+        <template id="show_hide_products_add_to_cart_button" inherit_id="website_sale.products_add_to_cart"
+                  customize_show="True" name="Add to Cart">
+            <xpath expr="//t[@t-if='product_variant_id']" position="replace">
+                <t t-if="product_variant_id">
+                    <t t-if="not product.is_sold_out">
+                        <a href="#" role="button" class="btn btn-secondary a-submit" aria-label="Shopping cart"
+                           title="Shopping cart">
+                            <span class="fa fa-shopping-cart"/>
+                        </a>
+                    </t>
+                </t>
+            </xpath>
+        </template>
+
+        <!--        Hiding cart button from single product page when the checkbox is checked-->
+        <template id="hide_products_add_to_cart_button_product_page" inherit_id="website_sale.product"
+                  customize_show="True"
+                  name="Product">
+            <xpath expr="//a[@id='add_to_cart']" position="attributes">
+                <attribute name="t-if">not product.is_sold_out</attribute>
+            </xpath>
+        </template>
+
+        <!--        adding a banner of sold out-->
+        <template id="sold_out_ribbon_product_page" inherit_id="website_sale.shop_product_carousel" name="Shop Product Carousel">
+            <xpath expr="//div[@id='o-carousel-product']" position="inside">
+                <span t-if="product.is_sold_out" style="position: absolute;top: 5px;left: 0px;padding:5px 20px;background:red;font-weight:bold;color:white;border-radius:0px 20px 20px 0px;box-shadow: 5px 5px 10px #3a3a3a">SOLD OUT</span>
+            </xpath>
+        </template>
+
+        <template id="hide_product_quantity_product_page" inherit_id="website_sale.product_quantity"
+                  customize_show="True" name="Product">
+            <xpath expr="//div[hasclass('css_quantity')]" position="attributes">
+                <attribute name="t-if">not product.is_sold_out</attribute>
+            </xpath>
+        </template>
+
+        <!--        hide cart button on wishlist -->
+        <template id="product_wishlist_inherit" inherit_id="website_sale_wishlist.product_wishlist">
+            <xpath expr="//button[hasclass('o_wish_add')]" position="replace">
+                <t t-if="not wish.product_id.is_sold_out">
+                    <button type="button" role="button" class="btn btn-secondary btn-block o_wish_add mb4">Add
+                        <span class='d-none d-md-inline'>to Cart</span>
+                    </button>
+                </t>
+            </xpath>
+        </template>
 
     </data>
 </odoo>

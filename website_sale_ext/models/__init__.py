@@ -4,3 +4,4 @@ from . import stock_picking_inherit
 from . import website
 from . import res_config_settings
 from . import product_pricelist
+from . import product_template

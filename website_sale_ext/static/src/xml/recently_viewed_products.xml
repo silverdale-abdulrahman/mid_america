@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates xml:space="preserve">
+
+    <!--        Hiding cart button from recently viewed products when the checkbox is checked-->
+        <t t-extend="website_sale.productsRecentlyViewed">
+            <t t-jquery=".js_add_cart" t-operation="replace">
+                <t t-if="!product.is_sold_out">
+                    <button type="button" role="button" class="btn btn-primary js_add_cart ml-auto" title="Add to Cart">
+                        <i class="fa fa-fw fa-shopping-cart"/>
+                    </button>
+                </t>
+            </t>
+        </t>
+
+</templates>

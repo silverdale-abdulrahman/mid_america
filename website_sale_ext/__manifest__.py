@@ -8,11 +8,11 @@
     'author': "Silverdale",
     'website': "https://www.silverdaletech.com",
     'category': 'Tools',
-    'version': '14.0.1.3',
+    'version': '14.0.1.4',
     'license': 'AGPL-3',
-    'depends': ['website_sale', 'stock_account'],
+    'depends': ['website_sale', 'stock_account', 'website_sale_stock'],
     'data': [
-
+        'views/assets.xml',
         'views/templates.xml',
         'views/website_salecart_inherit.xml',
         'views/stock_picking_inherit.xml',
@@ -24,6 +24,7 @@
         'views/product_desc.xml',
         'views/product_pricelist_view.xml',
         'views/website_visitor_views.xml',
+        'views/product_template_inherit.xml',
     ],
 
     
